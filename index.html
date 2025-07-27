@@ -3,262 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jam-Malbia.id</title>
+<title>Jam Online & Jam Dunia</title>
 <style>
-    :root {
-        --bg: #121212;
-        --text: #fff;
-        --primary: #00ffcc;
-        --card: #1e1e1e;
-    }
-    body.light {
-        --bg: #f4f4f4;
-        --text: #000;
-        --primary: #008080;
-        --card: #fff;
-    }
-    body {
-        font-family: Arial, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        text-align: center;
-        padding: 20px;
-        transition: background 0.3s, color 0.3s;
-    }
-    h1 { color: var(--primary); margin-bottom: 10px; }
-    .clock { font-size: 3rem; margin: 15px 0; }
-    .section {
-        background: var(--card);
-        border-radius: 15px;
-        padding: 15px;
-        margin: 15px 0;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    input, button, select {
-        padding: 10px;
-        margin: 5px;
-        border-radius: 8px;
-        border: none;
-        font-size: 1rem;
-    }
-    button {
-        background: var(--primary);
-        color: var(--bg);
-        cursor: pointer;
-        font-weight: bold;
-    }
-    button:hover { opacity: 0.8; }
-    .toggle-mode {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: var(--primary);
-        color: var(--bg);
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    table {
-        width: 100%;
-        color: var(--text);
-        margin-top: 10px;
-        border-collapse: collapse;
-    }
-    td, th { padding: 8px; border-bottom: 1px solid #444; }
-    .running { animation: pulse 1s infinite; }
-    @keyframes pulse {
-        0% { color: var(--text); }
-        50% { color: var(--primary); }
-        100% { color: var(--text); }
-    }
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-mqofii05cTylOrKw3t7-E_2R9X3rZNWNImq9sWWmo6PTAYs-9X50kJU&s=10') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+  }
+  h1 { font-size: 40px; margin-bottom: 10px; }
+  #localClock { font-size: 60px; font-weight: bold; margin: 20px 0; }
+  .world-clocks {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .clock-box {
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 160px;
+  }
+  .city { font-size: 20px; margin-bottom: 5px; font-weight: bold; }
+  .time { font-size: 28px; }
 </style>
 </head>
 <body>
-
-<div class="toggle-mode" onclick="toggleMode()">Mode</div>
-<h1>Jam-Malbia.id</h1>
-
-<!-- JAM DIGITAL -->
-<div class="section">
-    <h2>Jam Digital</h2>
-    <div id="digitalClock" class="clock"></div>
-</div>
-
-<!-- STOPWATCH -->
-<div class="section">
-    <h2>Stopwatch</h2>
-    <div id="stopwatch" style="font-size: 2rem;">00:00:00</div>
-    <button onclick="startStopwatch()">Start</button>
-    <button onclick="stopStopwatch()">Stop</button>
-    <button onclick="resetStopwatch()">Reset</button>
-</div>
-
-<!-- TIMER -->
-<div class="section">
-    <h2>Timer</h2>
-    <input type="number" id="timerInput" placeholder="Detik" min="1">
-    <button onclick="startTimer()">Mulai</button>
-    <button onclick="stopAlarm()">Stop Alarm</button>
-    <div id="timerDisplay" style="font-size: 2rem; margin-top:10px;">00:00</div>
-</div>
-
-<!-- ALARM -->
-<div class="section">
-    <h2>Alarm</h2>
-    <input type="time" id="alarmTime">
-    <select id="alarmSoundSelect">
-        <option value="https://www.soundjay.com/button/beep-07.wav">Beep</option>
-        <option value="https://www.soundjay.com/button/button-16.mp3">Ding</option>
-        <option value="https://www.soundjay.com/button/button-35.mp3">Bell</option>
-    </select>
-    <button onclick="setAlarm()">Set Alarm</button>
-    <button onclick="stopAlarm()">Stop Alarm</button>
-    <div id="alarmStatus" style="margin-top:10px;">Belum ada alarm</div>
-</div>
-
-<!-- AUDIO -->
-<audio id="alarmSound" preload="auto" loop></audio>
-
-<!-- ZONA WAKTU -->
-<div class="section">
-    <h2>Zona Waktu Dunia</h2>
-    <table>
-        <thead>
-            <tr><th>Kota</th><th>Waktu</th></tr>
-        </thead>
-        <tbody id="worldTime"></tbody>
-    </table>
-</div>
+  <h1>Jam Online Mafoo.id</h1>
+  <div id="localClock"></div>
+  <h2>Jam Dunia</h2>
+  <div class="world-clocks">
+    <div class="clock-box">
+      <div class="city">New York (USA)</div>
+      <div class="time" id="nyClock"></div>
+    </div>
+    <div class="clock-box">
+      <div class="city">London (UK)</div>
+      <div class="time" id="londonClock"></div>
+    </div>
+    <div class="clock-box">
+      <div class="city">Tokyo (JPN)</div>
+      <div class="time" id="tokyoClock"></div>
+    </div>
+    <div class="clock-box">
+      <div class="city">Sydney (AUS)</div>
+      <div class="time" id="sydneyClock"></div>
+    </div>
+  </div>
 
 <script>
-// === MODE TOGGLE ===
-function toggleMode() {
-    document.body.classList.toggle('light');
+function updateClocks() {
+  const now = new Date();
+
+  // Jam lokal
+  document.getElementById('localClock').innerText =
+    now.toLocaleTimeString('id-ID', { hour12: false });
+
+  // Jam dunia (gunakan UTC offset)
+  const ny = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+  const london = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" }));
+  const tokyo = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+  const sydney = new Date(now.toLocaleString("en-US", { timeZone: "Australia/Sydney" }));
+
+  document.getElementById('nyClock').innerText =
+    ny.toLocaleTimeString('en-US', { hour12: false });
+  document.getElementById('londonClock').innerText =
+    london.toLocaleTimeString('en-GB', { hour12: false });
+  document.getElementById('tokyoClock').innerText =
+    tokyo.toLocaleTimeString('ja-JP', { hour12: false });
+  document.getElementById('sydneyClock').innerText =
+    sydney.toLocaleTimeString('en-AU', { hour12: false });
 }
 
-// === JAM DIGITAL ===
-function updateClock() {
-    const now = new Date();
-    document.getElementById('digitalClock').textContent = now.toLocaleTimeString();
-}
-setInterval(updateClock, 1000);
-updateClock();
-
-// === STOPWATCH ===
-let stopwatchInterval;
-let stopwatchSeconds = 0;
-function formatTime(sec) {
-    const h = String(Math.floor(sec / 3600)).padStart(2, '0');
-    const m = String(Math.floor((sec % 3600) / 60)).padStart(2, '0');
-    const s = String(sec % 60).padStart(2, '0');
-    return `${h}:${m}:${s}`;
-}
-function startStopwatch() {
-    if (stopwatchInterval) return;
-    document.getElementById('stopwatch').classList.add('running');
-    stopwatchInterval = setInterval(() => {
-        stopwatchSeconds++;
-        document.getElementById('stopwatch').textContent = formatTime(stopwatchSeconds);
-    }, 1000);
-}
-function stopStopwatch() {
-    clearInterval(stopwatchInterval);
-    stopwatchInterval = null;
-    document.getElementById('stopwatch').classList.remove('running');
-}
-function resetStopwatch() {
-    stopStopwatch();
-    stopwatchSeconds = 0;
-    document.getElementById('stopwatch').textContent = "00:00:00";
-}
-
-// === TIMER ===
-let timerInterval;
-function startTimer() {
-    clearInterval(timerInterval);
-    const inputVal = document.getElementById('timerInput').value.trim();
-    let seconds = parseInt(inputVal);
-
-    if (!inputVal || isNaN(seconds) || seconds <= 0) {
-        alert("Masukkan angka detik yang valid!");
-        document.getElementById('timerDisplay').textContent = "00:00";
-        return;
-    }
-
-    document.getElementById('timerDisplay').textContent = formatTimer(seconds);
-
-    timerInterval = setInterval(() => {
-        seconds--;
-        document.getElementById('timerDisplay').textContent = formatTimer(seconds);
-
-        if (seconds <= 0) {
-            clearInterval(timerInterval);
-            document.getElementById('timerDisplay').textContent = "00:00";
-            playAlarm();
-            alert('Timer Selesai!');
-        }
-    }, 1000);
-}
-
-function formatTimer(sec) {
-    if (sec < 0) sec = 0;
-    const m = String(Math.floor(sec / 60)).padStart(2, '0');
-    const s = String(sec % 60).padStart(2, '0');
-    return `${m}:${s}`;
-}
-
-// === ALARM ===
-let alarmTime = null;
-function setAlarm() {
-    alarmTime = document.getElementById('alarmTime').value;
-    document.getElementById('alarmStatus').textContent = alarmTime ? `Alarm diatur: ${alarmTime}` : 'Belum ada alarm';
-}
-function stopAlarm() {
-    const audio = document.getElementById('alarmSound');
-    audio.pause();
-    audio.currentTime = 0;
-}
-setInterval(() => {
-    if (!alarmTime) return;
-    const now = new Date();
-    const current = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-    if (current === alarmTime) {
-        playAlarm();
-        alert('Alarm Berbunyi!');
-        alarmTime = null;
-        document.getElementById('alarmStatus').textContent = 'Belum ada alarm';
-    }
-}, 1000);
-
-function playAlarm() {
-    const selectedSound = document.getElementById('alarmSoundSelect').value;
-    const audio = document.getElementById('alarmSound');
-    audio.src = selectedSound;
-    audio.play();
-}
-
-// === ZONA WAKTU ===
-const cities = [
-    {name: "Jakarta", offset: 7},
-    {name: "Tokyo", offset: 9},
-    {name: "London", offset: 0},
-    {name: "New York", offset: -4},
-    {name: "Dubai", offset: 4}
-];
-function updateWorldTime() {
-    const tbody = document.getElementById('worldTime');
-    tbody.innerHTML = '';
-    cities.forEach(city => {
-        const now = new Date();
-        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-        const cityTime = new Date(utc + city.offset * 3600000);
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${city.name}</td><td>${cityTime.toLocaleTimeString()}</td>`;
-        tbody.appendChild(tr);
-    });
-}
-setInterval(updateWorldTime, 1000);
-updateWorldTime();
+setInterval(updateClocks, 1000);
+updateClocks();
 </script>
 </body>
 </html>
